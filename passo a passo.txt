@@ -1,0 +1,72 @@
+- pegar o main
+- pegar o root
+- pegar o input
+- pegar o input do resultado
+- criar um array com todas as teclas que serão permitidas:
+const allowedKeys = ["(", ")", "/", "*", "-", "+", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0", ".", "%", " "]
+
+
+1º - Impedir o usuário de digitar qualquer coisa:
+   - adicionar um evento no input (evento keydown = quando a tecla for pressionada)
+   - criar função do evento com parâmetro ev
+      - prevenir o funcionamento padrão
+      - criar if se o array inclui ev.key (ev é o parâmetro da função):
+          - pegar o valor do input e juntar com o valor da tecla
+          - dar um return
+      - criar outro if para se o ev.key for igual ao 'Backspace':
+         - pegar o valor do input que vai ser igual a ele mesmo mais o slice(0, -1) -
+isso vai pegar todos os valores digitados no input até o penúltimo, excluindo o último
+      - criar outro if para se o ev.key for igual ao 'Enter':
+         - chamar função calculate() - criar essa função
+
+2º - Criar função para os botões que serão clicados
+   - pegar todos os elementos charkey
+   - para cada um deles (forEach), executar uma função com parâmetro charKeyBtn
+       - adicionar um evento de click ao charKeyBtn, com função anônima
+          - criar variável value que vai ser igual ao charKeyBtn.dataset.value
+          - pegar o valor input e juntar com o value
+
+3º - Criar evento para o clear
+   - pegar o botão clear e adicionar um evento de click, com uma função
+      - pegar o valor do input e transformar em string vazia
+      - colocar foco no input
+
+4º - Criar evento para o igual
+   - pegar o botão de igual e adicionar um evento de click, com a função calculate
+
+5º - Criar função de calcular
+   - criar variável resultado = eval(input.value) //o eval analisa e executa um código JS
+   - pegar o valor do input de resultado e atribuir o resultado
+
+6º - Criar funcionalidade de trocar o tema
+   - pegar o botão responsável por trocar o tema
+   - adicionar um evento de click no botão, com uma função
+      - criar um if para verificar o tema atual
+      - pegar o main.dataset-theme (main foi pego no início) e se ele for igual a 'dark',
+iremos trocar para o tema claro
+      - pegar o root e setar o --bg-color(cor clara) do css dentro do style
+      - pegar o root e setar o --border-color(cinza claro) do css dentro do style
+      - pegar o root e setar o --font-color(cor escura) do css dentro do style
+      - pegar o root e setar o --primary-color(#26834a) do css dentro do style
+      -pegar o main.dataset.theme e atribuir 'light'
+      
+      -criar um else para se o tema já estiver claro
+      - pegar todos os passos acima e inverter as cores para o padrão escuro
+      - pegar o main.dataset.theme e atribuir 'dark'
+
+7º - Criar funcionalidade para o botão de copiar
+   - pegar o botão de copiar e adicionar um evento de click, com uma função com parâmetro
+ev
+      - criar variável button igual ao ev.currentTarget (que é quem acionou o evento)
+      - criar um if para saber se o texto do botão é igual a 'Copy'
+         - pegar o texto do botão e atualizar para 'Copied'
+         - pegar o botão e adiconar a classe css 'success'
+         - pegar o navigator.clipboard.writeText(resultInput.value)
+      - criar um else para se o texto já tiver sido copiado
+         - pegar o texto do botão e voltar para 'Copy'
+         - remover a classe 'success'
+
+8º - Criar funcionalidade para tratar erro
+   - pegar a função calculate() e setar o valor do resultInput para 'Erro!'
+   - adicionar a classe de erro do css ao resultInput
+   - pegar o resultInput e tirar a classe de erro 
